@@ -1,4 +1,4 @@
-# IdentityProject
+# IdentityProject ASP.Net Core 6     22-6-2023
      1. Scaffold The Identity UI
      2.  Renaming The Default Identity Tables
      3.Adding Custom Fields To Identity User (FristName -LastName -profile picture )
@@ -12,7 +12,7 @@
       12. Manage User Roles (Add/Remove)
       13. Add/Create new user
       14. Update user
-      15. Delete User By API EndPoint
+      15. Delete User By API EndPoint Ajax
       16. Force Email Confirmation
      17.  Send Confirmation and Reset Password Emails 
       
