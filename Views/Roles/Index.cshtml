@@ -1,0 +1,151 @@
+﻿
+@model IEnumerable<IdentityRole>
+@{
+    ViewData["Title"] = "Roles";
+}
+
+@*<a class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Add</a>*@
+<button type="button" class="btn btn-primary   js-renderPopup"
+data-titel="Add Role"
+data-url="/Roles/Create"> Add</button>
+
+<table class="table table-striped mt-4">
+    <thead>
+        <tr>
+         
+
+            <th>Name</th>
+            <th>NormalizedName</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var role in  Model)
+        {
+        <tr>
+           
+            <td>@role.Name</td>
+            <td>@role.NormalizedName</td>
+                <td><a   class="btn btn-primary   js-renderPopup"
+                       data-titel="Edit Role"
+                       data-url="/Roles/Edit/@role.Id"
+                       data-update="true">Edit</a>
+                    <a class="btn btn-primary js-delete"
+                       data-url="/Roles/Delete/@role.Id">Delete</a>
+
+                </td>
+        </tr>
+        }
+    </tbody>
+</table>
+
+
+
+<div class="modal fade" id="exampleModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog" >
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="ModalTitel"></h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+               
+            </div>
+            <div class="modal-body">
+              
+            </div>
+           
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        $('body').
+            delegate('.js-renderPopup',
+                'click',
+                function () {
+                    var btn = $(this);
+                    var Modalpopup = $('#exampleModal');
+                    console.log(btn.data('titel'));
+                    console.log(btn.data('url'));
+                    Modalpopup.find('#ModalTitel').text(btn.data('titel'));
+                    if (btn.data('update')) {
+                      var   updateRow = btn.parents('tr');
+                        console.log(updateRow);
+                    }
+
+                    $.get({
+                        url: btn.data('url'),
+                        success: function (form) {
+                            Modalpopup.find('.modal-body').html(form);
+                            $.validator.unobtrusive.parse(Modalpopup);
+                        },
+                        error: function () {  }
+
+                    });
+
+
+                    Modalpopup.modal('show');
+
+                }
+            );
+
+
+        $('body').delegate('.js-delete', 'click', function () {
+            var btn = $(this)
+            bootbox.confirm({
+                message: 'Are You Sure You Want To Change The Status?',
+                buttons: {
+                    confirm: {
+                        label: 'Yes',
+                        className: 'btn btn-primary'
+                    },
+                    cancel: {
+                        label: 'No',
+                        className: 'btn-danger'
+                    }
+                },
+
+                callback: function (result) {
+
+                    if (result) {
+                        $.post({
+                            url: btn.data('url'),
+                            data: {
+                                '__RequestVerificationToken': $('.js-token').val()
+                            },
+                            success: function (data) {
+                                alert('success');
+                               console.log(  data);
+                            },
+                                    Error: function (data) {
+                                alert('Error');
+                                console.log(data);
+                                    }
+
+                        });
+                    }
+                    ///////////////////////////
+
+
+                }
+            });
+
+
+
+
+
+
+
+
+
+
+
+
+
+        });
+    </script>
+
+}
