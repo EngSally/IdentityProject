@@ -2,8 +2,8 @@
 {
     public static class Constant
     {
-        public static readonly string UserRole="User";
-        public static  readonly string AdminRole="Admin";
+        public const  string UserRole="User";
+        public  const  string AdminRole="Admin";
 
       
     }

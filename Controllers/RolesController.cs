@@ -13,7 +13,7 @@ using NuGet.Protocol;
 namespace IdentityProject.Controllers
 {
 
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = Constant.AdminRole)]
     public class RolesController : Controller
     {
         private readonly RoleManager<IdentityRole> _roleManager;

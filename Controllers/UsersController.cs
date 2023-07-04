@@ -7,10 +7,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Data;
 using System.Net.Mail;
+using IdentityProject.Data.Configuration;
 
 namespace IdentityProject.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = Constant.AdminRole)]
    
     public class UsersController : Controller
     {
